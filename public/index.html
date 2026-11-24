@@ -31,20 +31,17 @@ button,input{font:inherit;color:inherit}
 button{cursor:pointer;border:0;border-radius:14px;min-height:44px;padding:0 16px;font-weight:800;touch-action:manipulation}
 button:disabled{cursor:default;opacity:.5}
 button:focus-visible,input:focus-visible,label.photo:focus-within{outline:3px solid var(--soft);outline-offset:2px}
-.wrap{max-width:1100px;margin:0 auto;padding:max(18px,env(safe-area-inset-top)) max(4vw,14px) 140px}
-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.wrap{--px:max(4vw,14px);--pt:max(18px,env(safe-area-inset-top));max-width:1100px;margin:0 auto;padding:var(--pt) var(--px) 140px}
 .logo{width:64px;height:52px;flex:none;color:var(--cafe)}
 h1{font:700 clamp(28px,6vw,40px)/1 'Cormorant Garamond',Georgia,serif;margin:0;letter-spacing:.01em}
 h2.sec{font-size:22px;font-weight:900;margin:28px 0 10px}
 .sub{color:var(--soft);font-size:14px;margin:2px 0 0}
-.who{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--soft)}
-.who button{background:transparent;border:2px solid var(--line);font-size:14px;padding:0 12px;color:var(--ink)}
-.board{background:var(--cafe);color:var(--onCafe);border-radius:24px;padding:20px clamp(18px,3vw,30px);display:grid;grid-template-columns:minmax(0,1.7fr) repeat(4,minmax(0,1fr));gap:16px;align-items:end;margin-bottom:6px}
+.board{background:linear-gradient(135deg,light-dark(#7a5038,#3b2a1f),light-dark(#5b3a28,#2c1f17));color:var(--onCafe);border-radius:24px;padding:20px clamp(18px,3vw,30px);display:grid;grid-template-columns:minmax(0,1.7fr) repeat(4,minmax(0,1fr));gap:16px;align-items:end;margin-bottom:6px}
 .board .lbl{font-size:13px;opacity:.8;font-weight:700}
 .big{font-size:clamp(32px,4.6vw,46px);font-weight:900;line-height:1;white-space:nowrap}
 .mid{font-size:21px;font-weight:900;white-space:nowrap}
-@media(max-width:520px){#whoName{display:none}.sub{font-size:12px}.logo{width:50px;height:42px}header{gap:8px}
- .wrap{padding:max(12px,env(safe-area-inset-top)) 12px 130px}.board{padding:16px;gap:12px;border-radius:20px}.mid{font-size:18px}
+@media(max-width:520px){
+ .wrap{--px:12px;--pt:max(12px,env(safe-area-inset-top));padding-bottom:130px}.board{padding:16px;gap:12px;border-radius:20px}.mid{font-size:18px}
  .tabs{gap:6px}.search{order:3;flex-basis:100%}.addp{margin-left:auto}
  .body{padding:8px 10px 10px}.nm{font-size:15px}.pr{font-size:17px}.tag{font-size:12px;padding:1px 8px}
  .cat>summary{padding:12px;gap:10px}.cat .cn b{font-size:20px}.cat .thumbs img{width:34px;height:34px}
@@ -89,10 +86,6 @@ h2.sec{font-size:22px;font-weight:900;margin:28px 0 10px}
 .nm{font-weight:800;line-height:1.2}
 .pr{font-size:19px;font-weight:900;white-space:nowrap}
 .meta{font-size:13px;color:var(--soft)}
-.card.grp{grid-column:span 2;display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);grid-template-rows:auto 1fr;align-items:start}
-.card.grp .ph{grid-row:1/3;height:100%;aspect-ratio:auto;min-height:220px}
-.card.grp .pr{white-space:normal;font-size:16px}
-.card.grp .vars{padding-top:2px}
 .vars{padding:0 10px 10px;display:flex;flex-direction:column;gap:6px}
 .vr{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;background:var(--tint);border:2px solid var(--line);border-radius:14px;padding:4px 4px 4px 10px;min-height:52px}
 .vr.on{border-color:var(--ok)}
@@ -147,6 +140,51 @@ h2.sec{font-size:22px;font-weight:900;margin:28px 0 10px}
 .gfoot{margin:22px 0 0;font-size:13px;color:var(--soft)}
 @media(prefers-reduced-motion:reduce){.gbox{animation:none}}
 @media(max-width:700px){.gate .gdeco{display:none}}
+.appbar{display:flex;align-items:center;gap:12px;background:var(--cafe);color:var(--onCafe);margin:calc(-1*var(--pt)) calc(-1*var(--px)) 16px;padding:calc(var(--pt) + 4px) var(--px) 16px;border-radius:0 0 28px 28px;position:relative;z-index:6;box-shadow:0 10px 30px -18px rgba(40,20,10,.6)}
+@media(min-width:1100px){.appbar{margin-left:0;margin-right:0;border-radius:0 0 28px 28px}}
+.appbar .tema{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);color:var(--onCafe);margin:0}
+.appbar .brand{display:flex;align-items:center;gap:10px;min-width:0}
+.appbar .logo{width:58px;height:48px;color:var(--onCafe)}
+.appbar h1{color:var(--onCafe);font-size:clamp(26px,5vw,34px)}
+.appbar .sub{color:var(--onCafe);opacity:.78;margin:3px 0 0;font-size:13px}.appbar .sub em{font:italic 600 17px/1 'Cormorant Garamond',Georgia,serif;opacity:1}
+.who{margin-left:auto;display:flex;align-items:center;gap:10px;position:relative}
+.who[hidden]{display:none}
+.av{width:40px;height:40px;border-radius:50%;background:var(--onCafe);color:var(--cafe);display:grid;place-items:center;font-weight:900;font-size:17px;flex:none}
+.wn{display:flex;flex-direction:column;line-height:1.1}.wn b{font-size:15px}.wn small{font-size:12px;opacity:.75;font-weight:700}
+.more{width:44px;min-height:44px;padding:0;border-radius:14px;background:rgba(255,255,255,.08);color:var(--onCafe);display:grid;place-items:center}.more svg{width:22px;height:22px}
+.menu{position:absolute;right:0;top:calc(100% + 10px);background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 40px -12px rgba(40,20,10,.45);padding:6px;min-width:250px;z-index:40}
+.menu[hidden]{display:none}
+.menu button{display:flex;align-items:center;gap:12px;width:100%;background:transparent;text-align:left;border-radius:12px;padding:10px 12px;min-height:52px;font-weight:800}
+.menu button:hover,.menu button:focus-visible{background:var(--tint)}
+.menu button svg{width:22px;height:22px;flex:none;color:var(--soft)}.menu button small{display:block;font-weight:600;font-size:12px;color:var(--soft)}
+.retro{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#f6e3b4;color:#4a2c1d;border:2px solid #e2bf6d;border-radius:20px;padding:12px 14px;margin:0 0 12px}
+.retro[hidden]{display:none}
+.retro .ri svg{width:28px;height:28px}.retro .rt{flex:1 1 200px;line-height:1.2}.retro .rt small{display:block;font-size:13px;opacity:.8}
+.retro .rd{font-weight:800;font-size:13px;display:flex;flex-direction:column;gap:2px}
+.retro input{min-height:44px;border:2px solid #e2bf6d;border-radius:12px;background:#fffaf0;color:#4a2c1d;padding:0 10px;font-size:16px;font-weight:800}
+.retro .rx{background:#4a2c1d;color:#fff6ea}
+.sdate{display:flex;align-items:center;gap:8px;background:#f6e3b4;color:#4a2c1d;border-radius:12px;padding:8px 12px;font-weight:800;margin:-4px 0 12px}.sdate svg{width:20px;height:20px}
+.pill.ant{background:#f6e3b4;color:#6b4a12}
+/* tamanhos */
+.card.grp{grid-column:span 2;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);align-items:stretch}
+.card.grp .ph{aspect-ratio:auto;min-height:230px;height:100%}
+.card.grp .gside{display:flex;flex-direction:column;padding:12px 12px 12px;gap:8px}
+.card.grp .nm{font-size:16px}.card.grp .hint{font-size:12px;color:var(--soft);font-weight:700;margin-top:-4px}
+.sizes{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.sz{position:relative;border:2px solid var(--line);border-radius:18px;background:var(--tint);display:flex;flex-direction:column;overflow:hidden}
+.sz.on{border-color:var(--ok);background:light-dark(#eaf5ee,#1d3326)}
+.sz.off{opacity:.6}
+.szb{all:unset;cursor:pointer;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:center;padding:10px 34px 8px 10px}
+.szb:focus-visible{outline:3px solid var(--soft);outline-offset:-3px;border-radius:16px}
+.szl{grid-row:1/3;width:42px;height:42px;border-radius:50%;background:var(--cafe);color:var(--onCafe);display:grid;place-items:center;font-weight:900;font-size:19px}
+.sz.on .szl{background:var(--ok);color:#fff}
+.szp{font-weight:900;font-size:17px;white-space:nowrap}.szs{font-size:12px;color:var(--soft);font-weight:700;white-space:nowrap}
+.szq{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:0 8px 8px}
+.szq button{min-height:38px;width:42px;padding:0;background:var(--card);border:2px solid var(--line);font-size:19px}
+.szq .plus{background:var(--ok);border-color:var(--ok);color:#fff}.szq b{font-size:18px}
+.sze{position:absolute;top:4px;right:4px;width:32px;min-height:32px;padding:0;background:transparent;color:var(--soft);display:grid;place-items:center}.sze svg{width:15px;height:15px}
+@media(max-width:520px){.appbar{border-radius:0 0 22px 22px;gap:8px;padding-bottom:12px}.appbar .logo{width:44px;height:38px}.appbar .sub span{display:none}.wn{display:none}.av{width:36px;height:36px;font-size:15px}
+ .card.grp{grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr)}.card.grp .ph{min-height:200px}.sizes{grid-template-columns:1fr}.szb{padding:8px}.szl{width:36px;height:36px;font-size:17px}}
 .toast{position:fixed;left:50%;top:16px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-weight:700;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw;text-align:center;z-index:20}
 .toast.on{opacity:1}
 .sheet{position:fixed;inset:0;background:rgba(20,10,5,.5);display:none;align-items:flex-end;justify-content:center;z-index:9}
@@ -181,12 +219,24 @@ label.photo input{position:absolute;opacity:0;width:1px;height:1px}
 </head>
 <body>
 <div class="wrap">
-  <header>
+  <header class="appbar">
     <button class="tema" id="tema" aria-label="Alternar modo dia e noite" title="Dia / noite"><svg class="lua" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2 12h2.2M19.8 12H22M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"/></svg></button>
-    <svg class="logo" viewBox="100 260 960 760" role="img" aria-label="Mocca Studio"><g transform="translate(0.000000,1254.000000) scale(0.100000,-0.100000)" fill="currentColor" stroke="none"> <path d="M9507 9460 c-21 -6 -52 -17 -70 -26 -43 -22 -86 -56 -517 -399 -199 -159 -278 -223 -449 -364 -25 -20 -83 -67 -131 -106 -370 -299 -752 -619 -1121 -937 l-206 -178 -475 0 c-550 0 -469 -17 -628 135 -52 50 -131 125 -175 166 -44 41 -114 107 -155 145 -373 352 -888 813 -1135 1016 -11 9 -67 56 -125 105 -293 245 -489 394 -546 413 -162 56 -318 0 -387 -139 -22 -46 -22 -51 -25 -556 -4 -661 16 -2709 28 -2935 47 -860 195 -1516 470 -2075 139 -282 295 -511 475 -699 86 -89 210 -195 259 -221 32 -17 66 -16 66 3 0 5 -23 47 -51 93 -218 358 -373 798 -473 1339 -123 669 -143 1065 -167 3373 -6 604 -10 1100 -8 1102 9 8 682 -592 1653 -1475 81 -74 166 -150 189 -168 l40 -32 672 2 671 3 165 140 c90 76 286 243 434 370 372 318 547 466 850 717 443 367 540 446 545 443 6 -4 -6 -818 -19 -1325 -8 -331 -8 -357 9 -380 l17 -25 318 -3 c316 -2 319 -2 342 20 l23 21 0 1097 c0 1210 3 1156 -63 1241 -64 83 -193 126 -300 99z"/> <path d="M1924 7076 c-3 -9 -2 -22 4 -29 35 -42 84 -220 112 -407 37 -247 117 -584 180 -760 130 -362 271 -547 615 -805 254 -191 384 -369 542 -744 129 -307 136 -321 159 -321 8 0 17 6 20 13 2 7 -20 99 -51 203 -145 490 -182 686 -195 1039 -9 249 -18 327 -56 478 -72 288 -197 509 -409 722 -122 122 -201 184 -386 303 -190 122 -497 312 -514 318 -8 4 -17 -1 -21 -10z m540 -738 c20 -29 61 -87 92 -128 151 -203 345 -519 444 -725 83 -173 191 -468 190 -519 -1 -23 -54 67 -270 454 -204 365 -517 970 -501 970 4 0 25 -24 45 -52z"/> <path d="M9194 6841 c-38 -23 -44 -48 -44 -193 0 -102 1 -110 25 -133 l24 -25 319 0 c404 0 372 -15 372 176 0 75 -4 144 -10 154 -19 35 -64 40 -364 40 -268 0 -293 -2 -322 -19z"/> <path d="M9253 6365 c-11 -8 -23 -26 -27 -39 -8 -33 107 -354 136 -378 17 -15 41 -18 147 -18 69 0 136 3 148 6 23 6 44 47 117 236 51 130 55 159 26 188 -19 19 -33 20 -273 20 -207 0 -256 -3 -274 -15z"/> <path d="M9426 5817 c-11 -8 -20 -36 -27 -82 -19 -140 -70 -252 -156 -345 -100 -109 -253 -195 -468 -264 -143 -46 -207 -61 -591 -145 -454 -99 -640 -154 -819 -244 -138 -69 -257 -175 -298 -264 -70 -157 27 -320 257 -432 154 -75 240 -102 716 -225 518 -134 736 -217 847 -322 83 -78 46 -148 -132 -248 -282 -158 -763 -270 -1415 -328 -197 -18 -920 -17 -1100 0 -551 54 -952 180 -1026 323 -55 108 77 243 343 348 118 47 253 82 429 113 110 19 167 22 394 22 168 1 306 -4 377 -13 102 -12 115 -12 138 3 77 51 78 161 0 212 -73 48 -671 58 -942 16 -507 -79 -877 -268 -994 -507 -31 -64 -34 -78 -33 -155 0 -69 5 -95 26 -140 112 -239 506 -407 1132 -481 596 -70 1318 -42 1943 77 343 64 584 135 782 230 135 64 218 122 293 202 83 90 103 138 103 247 0 81 -3 95 -29 143 -38 68 -136 160 -223 208 -169 95 -355 157 -803 267 -146 36 -314 80 -374 96 -242 68 -401 144 -439 209 -19 31 -19 36 -4 67 62 130 392 256 1022 390 585 124 831 223 1024 414 81 80 119 135 171 243 46 97 68 175 77 273 8 96 -2 105 -106 105 -46 0 -84 -5 -95 -13z"/> <path d="M1710 5024 c-79 -8 -294 -46 -312 -55 -28 -15 -22 -25 40 -60 127 -71 229 -173 360 -358 192 -272 301 -411 406 -520 260 -266 489 -396 889 -501 290 -76 426 -147 662 -346 192 -162 300 -244 321 -244 23 0 39 24 27 43 -8 15 -89 110 -178 212 -246 279 -366 455 -550 805 -177 335 -255 450 -407 596 -222 214 -460 342 -753 404 -75 16 -145 22 -280 25 -99 1 -200 1 -225 -1z m615 -446 c318 -182 671 -472 886 -728 30 -35 60 -71 66 -78 7 -7 33 -40 58 -73 75 -96 41 -80 -160 77 -142 111 -261 215 -526 460 -96 88 -238 212 -315 275 -78 63 -157 126 -175 142 l-34 27 65 -31 c36 -17 97 -49 135 -71z"/> </g></svg>
-    <div><h1>Mocca Studio</h1><p class="sub">Impressão 3D · @moccastudio.3d</p></div>
-    <div class="who"><span id="whoName"></span><button id="who">Entrar</button></div>
+    <div class="brand"><svg class="logo" viewBox="100 260 960 760" role="img" aria-label="Mocca Studio"><g transform="translate(0.000000,1254.000000) scale(0.100000,-0.100000)" fill="currentColor" stroke="none"> <path d="M9507 9460 c-21 -6 -52 -17 -70 -26 -43 -22 -86 -56 -517 -399 -199 -159 -278 -223 -449 -364 -25 -20 -83 -67 -131 -106 -370 -299 -752 -619 -1121 -937 l-206 -178 -475 0 c-550 0 -469 -17 -628 135 -52 50 -131 125 -175 166 -44 41 -114 107 -155 145 -373 352 -888 813 -1135 1016 -11 9 -67 56 -125 105 -293 245 -489 394 -546 413 -162 56 -318 0 -387 -139 -22 -46 -22 -51 -25 -556 -4 -661 16 -2709 28 -2935 47 -860 195 -1516 470 -2075 139 -282 295 -511 475 -699 86 -89 210 -195 259 -221 32 -17 66 -16 66 3 0 5 -23 47 -51 93 -218 358 -373 798 -473 1339 -123 669 -143 1065 -167 3373 -6 604 -10 1100 -8 1102 9 8 682 -592 1653 -1475 81 -74 166 -150 189 -168 l40 -32 672 2 671 3 165 140 c90 76 286 243 434 370 372 318 547 466 850 717 443 367 540 446 545 443 6 -4 -6 -818 -19 -1325 -8 -331 -8 -357 9 -380 l17 -25 318 -3 c316 -2 319 -2 342 20 l23 21 0 1097 c0 1210 3 1156 -63 1241 -64 83 -193 126 -300 99z"/> <path d="M1924 7076 c-3 -9 -2 -22 4 -29 35 -42 84 -220 112 -407 37 -247 117 -584 180 -760 130 -362 271 -547 615 -805 254 -191 384 -369 542 -744 129 -307 136 -321 159 -321 8 0 17 6 20 13 2 7 -20 99 -51 203 -145 490 -182 686 -195 1039 -9 249 -18 327 -56 478 -72 288 -197 509 -409 722 -122 122 -201 184 -386 303 -190 122 -497 312 -514 318 -8 4 -17 -1 -21 -10z m540 -738 c20 -29 61 -87 92 -128 151 -203 345 -519 444 -725 83 -173 191 -468 190 -519 -1 -23 -54 67 -270 454 -204 365 -517 970 -501 970 4 0 25 -24 45 -52z"/> <path d="M9194 6841 c-38 -23 -44 -48 -44 -193 0 -102 1 -110 25 -133 l24 -25 319 0 c404 0 372 -15 372 176 0 75 -4 144 -10 154 -19 35 -64 40 -364 40 -268 0 -293 -2 -322 -19z"/> <path d="M9253 6365 c-11 -8 -23 -26 -27 -39 -8 -33 107 -354 136 -378 17 -15 41 -18 147 -18 69 0 136 3 148 6 23 6 44 47 117 236 51 130 55 159 26 188 -19 19 -33 20 -273 20 -207 0 -256 -3 -274 -15z"/> <path d="M9426 5817 c-11 -8 -20 -36 -27 -82 -19 -140 -70 -252 -156 -345 -100 -109 -253 -195 -468 -264 -143 -46 -207 -61 -591 -145 -454 -99 -640 -154 -819 -244 -138 -69 -257 -175 -298 -264 -70 -157 27 -320 257 -432 154 -75 240 -102 716 -225 518 -134 736 -217 847 -322 83 -78 46 -148 -132 -248 -282 -158 -763 -270 -1415 -328 -197 -18 -920 -17 -1100 0 -551 54 -952 180 -1026 323 -55 108 77 243 343 348 118 47 253 82 429 113 110 19 167 22 394 22 168 1 306 -4 377 -13 102 -12 115 -12 138 3 77 51 78 161 0 212 -73 48 -671 58 -942 16 -507 -79 -877 -268 -994 -507 -31 -64 -34 -78 -33 -155 0 -69 5 -95 26 -140 112 -239 506 -407 1132 -481 596 -70 1318 -42 1943 77 343 64 584 135 782 230 135 64 218 122 293 202 83 90 103 138 103 247 0 81 -3 95 -29 143 -38 68 -136 160 -223 208 -169 95 -355 157 -803 267 -146 36 -314 80 -374 96 -242 68 -401 144 -439 209 -19 31 -19 36 -4 67 62 130 392 256 1022 390 585 124 831 223 1024 414 81 80 119 135 171 243 46 97 68 175 77 273 8 96 -2 105 -106 105 -46 0 -84 -5 -95 -13z"/> <path d="M1710 5024 c-79 -8 -294 -46 -312 -55 -28 -15 -22 -25 40 -60 127 -71 229 -173 360 -358 192 -272 301 -411 406 -520 260 -266 489 -396 889 -501 290 -76 426 -147 662 -346 192 -162 300 -244 321 -244 23 0 39 24 27 43 -8 15 -89 110 -178 212 -246 279 -366 455 -550 805 -177 335 -255 450 -407 596 -222 214 -460 342 -753 404 -75 16 -145 22 -280 25 -99 1 -200 1 -225 -1z m615 -446 c318 -182 671 -472 886 -728 30 -35 60 -71 66 -78 7 -7 33 -40 58 -73 75 -96 41 -80 -160 77 -142 111 -261 215 -526 460 -96 88 -238 212 -315 275 -78 63 -157 126 -175 142 l-34 27 65 -31 c36 -17 97 -49 135 -71z"/> </g></svg><div class="ttl"><h1>Mocca Studio</h1><p class="sub"><em>Vendas</em><span> · Impressão 3D</span></p></div></div>
+    <div class="who" id="whoBox" hidden>
+      <span class="av" id="whoAv" aria-hidden="true"></span><span class="wn"><b id="whoName"></b><small id="whoRole"></small></span>
+      <button class="more" id="more" aria-label="Mais opções" aria-haspopup="menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
+      <div class="menu" id="menu" role="menu" hidden>
+        <button role="menuitem" id="mRetro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Lançar venda anterior<small>Vendas feitas antes do app</small></span></button>
+        <button role="menuitem" id="who"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l5-5-5-5M15 12H4"/></svg><span>Sair</span></button>
+      </div>
+    </div>
   </header>
+  <div class="retro" id="retroBar" hidden>
+    <span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+    <div class="rt"><b>Lançando vendas anteriores</b><small>Não aparecem nas vendas de hoje e não mexem no estoque.</small></div>
+    <label class="rd">Data da venda<input type="date" id="retroDate"></label>
+    <button class="rx" id="retroOff">Concluir</button>
+  </div>
 
   <section class="board" id="board" aria-label="Faturamento" hidden>
     <div class="main"><div class="lbl">Faturamento de hoje</div><div class="big" id="fHoje">R$ 0,00</div><div class="split" id="fSplit"></div></div>
@@ -209,6 +259,7 @@ label.photo input{position:absolute;opacity:0;width:1px;height:1px}
     <div id="dia" hidden>
       <h2 class="sec">Vendas do dia</h2>
       <div class="list" id="diaList"></div>
+      <div id="antBox" hidden><h2 class="sec">Vendas anteriores lançadas hoje</h2><div class="list" id="antList"></div></div>
     </div>
   </div>
   <div id="vHist" hidden><div class="list" id="hist"></div></div>
@@ -224,6 +275,7 @@ label.photo input{position:absolute;opacity:0;width:1px;height:1px}
 <div class="sheet" id="sale" role="dialog" aria-modal="true" aria-labelledby="sTitle">
   <form class="pan" id="sForm">
     <h2 id="sTitle">Fechar venda</h2>
+    <div class="sdate" id="sDate" hidden></div>
     <label class="f">Nome do cliente<input id="sCli" required maxlength="80" autocomplete="off" placeholder="Ex.: Roberta"></label>
     <div class="f" style="margin-bottom:0">Forma de pagamento</div>
     <div class="chips" id="pay"><button type="button" class="chip" aria-pressed="false">Pix</button><button type="button" class="chip" aria-pressed="false">Dinheiro</button></div>
@@ -293,7 +345,7 @@ const hoje=()=>dia(new Date());
 
 const ORDEM=['Artigos de Libras','Artigos de Natal','Articulados','Chaveiros','Decoração'];
 const abertos=new Set();
-let pronto=false,sb=null,prods=[],peds=[],user=null,perfil=null,cart={},editing=null,newPhoto=null,busy=false,pay='';
+let retro=null,pronto=false,sb=null,prods=[],peds=[],user=null,perfil=null,cart={},editing=null,newPhoto=null,busy=false,pay='';
 const admin=()=>perfil&&perfil.papel==='admin';
 const equipe=()=>!!perfil;
 const rest=p=>Math.max(0,(p.estoque||0)-(p.vendidos||0));
@@ -302,7 +354,7 @@ const cartList=()=>Object.entries(cart).map(([id,q])=>({p:prods.find(x=>x.id===i
 const cartTotal=()=>cartList().reduce((a,x)=>a+x.q*(Number(x.p.preco)||0),0);
 const cartN=()=>cartList().reduce((a,x)=>a+x.q,0);
 
-function setQ(id,q){const p=prods.find(x=>x.id===id);if(!p)return;q=Math.max(0,Math.min(q,rest(p)));if(q)cart[id]=q;else delete cart[id];render();if($('sale').classList.contains('on'))renderSale()}
+function setQ(id,q){const p=prods.find(x=>x.id===id);if(!p)return;q=Math.max(0,Math.min(q,retro?99:rest(p)));if(q)cart[id]=q;else delete cart[id];render();if($('sale').classList.contains('on'))renderSale()}
 
 const agrupar=ps=>{const out=[],g={};for(const p of ps){if(!p.variante){out.push(p);continue}const k=p.nome.toLowerCase();if(!g[k]){g[k]=[];out.push(g[k])}g[k].push(p)}
   const ord=['PP','P','M','G','GG'];for(const k in g)g[k].sort((a,b)=>{const ia=ord.indexOf(String(a.variante).toUpperCase()),ib=ord.indexOf(String(b.variante).toUpperCase());return(ia<0?9:ia)-(ib<0?9:ib)||Number(a.preco)-Number(b.preco)});
@@ -310,20 +362,19 @@ const agrupar=ps=>{const out=[],g={};for(const p of ps){if(!p.variante){out.push
 const nomeP=p=>p.nome+(p.variante?' ('+p.variante+')':'');
 function grupoHtml(vs){
     const p0=vs[0],u=fotoUrl(vs.find(v=>v.foto)?.foto),totC=vs.reduce((a,v)=>a+(cart[v.id]||0),0);
-    const precos=vs.map(v=>Number(v.preco)).filter(x=>x>0);
-    const faixa=precos.length?(Math.min(...precos)===Math.max(...precos)?brl(precos[0]):brl(Math.min(...precos))+' a '+brl(Math.max(...precos))):(equipe()?'Sem preço':'Consulte');
-    const rows=vs.map(v=>{const r=rest(v),c=cart[v.id]||0,t=v.estoque||0,sp=!(Number(v.preco)>0),pode=equipe()&&r>0&&!sp,id=esc(v.id);
+    const tiles=vs.map(v=>{const r=rest(v),c=cart[v.id]||0,t=v.estoque||0,sp=!(Number(v.preco)>0),pode=equipe()&&!sp&&(retro||r>0),id=esc(v.id);
       const info=!equipe()?'':sp&&!t?'sem preço e qtd.':sp?'sem preço':!t?'sem quantidade':r?`restam ${r}`:'esgotado';
-      return `<div class="vr${c?' on':''}"><span class="vl"><b>${esc(v.variante)}</b>${sp?'':brl(v.preco)}</span>
-        ${pode?(c?`<button data-min="${id}" aria-label="Tirar um">−</button><b class="vq">${c}</b><button class="plus" data-add="${id}" aria-label="Mais um"${c>=r?' disabled':''}>+</button>`:`<button class="plus" data-add="${id}" aria-label="Adicionar tamanho ${esc(v.variante)}">+</button>`):equipe()?`<button class="plus off" data-why="${id}" aria-label="Tamanho ${esc(v.variante)} não disponível">+</button>`:''}
-        ${info||admin()?`<small class="vi">${info}${admin()?` · ${v.vendidos||0} vend. <button class="ved" data-ed="${id}" aria-label="Editar tamanho ${esc(v.variante)}">${PEN} editar</button>`:''}</small>`:''}</div>`}).join('');
-    return `<article class="card grp${totC?' in':''}"><div class="ph">${u?`<img src="${esc(u)}" alt="" decoding="async">`:BOX}${totC?`<span class="qty">${totC}</span>`:''}<span class="tag">${vs.length} tamanhos</span></div>
-      <div class="body"><div class="nm">${esc(p0.nome)}</div><div class="pr">${faixa}</div></div><div class="vars">${rows}</div></article>`;
+      const attr=pode?`data-add="${id}" aria-label="Adicionar tamanho ${esc(v.variante)}"`:equipe()?`data-why="${id}" aria-label="Tamanho ${esc(v.variante)} indisponível"`:'tabindex="-1"';
+      return `<div class="sz${c?' on':''}${equipe()&&!pode?' off':''}"><button class="szb" ${attr}><span class="szl">${esc(v.variante)}</span><span class="szp">${sp?(equipe()?'—':'Consulte'):brl(v.preco)}</span><span class="szs">${c?`${c} na venda`:info}${admin()?` · ${v.vendidos||0} vend.`:''}</span></button>
+        ${pode&&c?`<div class="szq"><button data-min="${id}" aria-label="Tirar um">−</button><b>${c}</b><button class="plus" data-add="${id}" aria-label="Mais um"${!retro&&c>=r?' disabled':''}>+</button></div>`:''}
+        ${admin()?`<button class="sze" data-ed="${id}" aria-label="Editar tamanho ${esc(v.variante)}">${PEN}</button>`:''}</div>`}).join('');
+    return `<article class="card grp${totC?' in':''}"><div class="ph">${u?`<img src="${esc(u)}" alt="" decoding="async">`:BOX}${totC?`<span class="qty">${totC}</span>`:''}</div>
+      <div class="gside"><div class="nm">${esc(p0.nome)}</div><div class="hint">${vs.length} tamanhos · toque no tamanho</div><div class="sizes">${tiles}</div></div></article>`;
 }
 function cardHtml(p){
     if(Array.isArray(p))return grupoHtml(p);
     const r=rest(p),u=fotoUrl(p.foto),id=esc(p.id),c=cart[p.id]||0,t=p.estoque||0,semPreco=!(Number(p.preco)>0);
-    const pode=equipe()&&r>0&&!semPreco;
+    const pode=equipe()&&!semPreco&&(retro||r>0);
     let tag='';
     if(equipe())tag=semPreco||!t?`<span class="tag falta">${semPreco&&!t?'Sem preço e qtd.':semPreco?'Sem preço':'Sem quantidade'}</span>`:r?`<span class="tag">Restam ${r}</span>`:'<span class="tag zero">Esgotado</span>';
     const inner=`<div class="ph">${u?`<img src="${esc(u)}" alt="" decoding="async">`:BOX}${c?`<span class="qty">${c}</span>`:''}${tag}</div>
@@ -331,15 +382,16 @@ function cardHtml(p){
     return `<article class="card${c?' in':''}${equipe()&&t&&!r?' out':''}">
       ${admin()?`<button class="edit" data-ed="${id}" aria-label="Editar ${esc(p.nome)}">${PEN}</button>`:''}
       ${pode?`<button class="pick" data-add="${id}" aria-label="Adicionar ${esc(nomeP(p))}">${inner}</button>`:equipe()?`<button class="pick" data-why="${id}" aria-label="${esc(nomeP(p))}: não disponível para venda">${inner}</button>`:inner}
-      ${pode&&c?`<div class="step"><button data-min="${id}" aria-label="Tirar um">−</button><button class="plus" data-add="${id}" aria-label="Mais um"${c>=r?' disabled':''}>+</button></div>`:''}</article>`;
+      ${pode&&c?`<div class="step"><button data-min="${id}" aria-label="Tirar um">−</button><button class="plus" data-add="${id}" aria-label="Mais um"${!retro&&c>=r?' disabled':''}>+</button></div>`:''}</article>`;
 }
 function render(){
-  $('whoName').textContent=perfil?'Olá, '+perfil.usuario:'';
+  $('whoBox').hidden=!perfil;if(perfil){$('whoName').textContent=perfil.usuario;$('whoAv').textContent=String(perfil.usuario||'?').slice(0,1);$('whoRole').textContent=admin()?'Administração':'Vendas'}
+  $('retroBar').hidden=!retro;if(retro&&!equipe()){retro=null}
   $('gate').hidden=!!perfil||!pronto;if(user&&!perfil&&pronto)$('lErr').textContent='Este usuário ainda não tem acesso às vendas.';
-  $('who').textContent=user?'Sair':'Entrar';
+  
   $('board').hidden=!admin();$('tHist').hidden=!admin();$('add').hidden=!admin();$('dia').hidden=!equipe();
   if(!admin()&&!$('vHist').hidden)setTab('vit');
-  $('tVit').textContent=equipe()?'Vender':'Vitrine';
+  $('tVit').textContent=retro?'Vender (data anterior)':equipe()?'Vender':'Vitrine';
   if(admin()){
     const h=hoje(),m=mes(new Date());
     const ph=peds.filter(p=>dia(p.criado_em)===h),soma=(l,f)=>l.filter(p=>p.pagamento===f).reduce((a,p)=>a+Number(p.total),0);
@@ -365,8 +417,9 @@ function render(){
   const n=cartN();$('cartbar').hidden=!equipe()||!n;
   $('cbN').textContent=n+(n===1?' item':' itens');$('cbT').textContent=brl(cartTotal());
   if(equipe()){
-    const h=hoje(),dd=peds.filter(p=>dia(p.criado_em)===h);
+    const h=hoje(),dd=peds.filter(p=>dia(p.criado_em)===h&&!p.retroativa),ant=peds.filter(p=>p.retroativa&&dia(p.lancado_em)===h);
     $('diaList').innerHTML=dd.length?dd.map(pedHtml).join(''):'<div class="empty" style="border:0"><b>Nenhuma venda hoje ainda</b>Toque nas peças para montar a venda.</div>';
+    $('antBox').hidden=!ant.length&&!retro;$('antList').innerHTML=ant.length?ant.map(pedHtml).join(''):'<div class="empty" style="border:0"><b>Nenhuma venda anterior lançada hoje</b>Escolha a data acima e monte a venda.</div>';
   }
   if(admin()){
     if(!peds.length)$('hist').innerHTML='<div class="empty" style="border:0"><b>Sem vendas ainda</b></div>';
@@ -378,7 +431,7 @@ function render(){
 function pedHtml(p){
   const its=Array.isArray(p.itens)?p.itens:[];
   const podeApagar=admin()||(user&&p.vendedor===user.id);
-  return `<details class="ped"><summary><div class="t"><b>${esc(p.cliente)}</b>${p.pagamento?`<span class="pill">${esc(p.pagamento)}</span>`:''}<div class="meta">${hora(p.criado_em)} · ${Number(p.qtd_itens)||0} ite${Number(p.qtd_itens)===1?'m':'ns'}${admin()&&p.vendedor_nome?' · por '+esc(p.vendedor_nome):''}</div></div><div class="v">${brl(p.total)}</div></summary>
+  return `<details class="ped"><summary><div class="t"><b>${esc(p.cliente)}</b>${p.pagamento?`<span class="pill">${esc(p.pagamento)}</span>`:''}${p.retroativa?'<span class="pill ant">anterior</span>':''}<div class="meta">${p.retroativa?'venda de '+esc(dia(p.criado_em))+' · lançada '+hora(p.lancado_em):hora(p.criado_em)} · ${Number(p.qtd_itens)||0} ite${Number(p.qtd_itens)===1?'m':'ns'}${admin()&&p.vendedor_nome?' · por '+esc(p.vendedor_nome):''}</div></div><div class="v">${brl(p.total)}</div></summary>
     <div class="its">${its.map(i=>`<div><span>${Number(i.qtd)||0}× ${esc(i.nome)}</span><span>${brl((Number(i.preco)||0)*(Number(i.qtd)||0))}</span></div>`).join('')}
     ${podeApagar?`<button class="x" data-rm="${esc(p.id)}">Cancelar esta venda</button>`:''}</div></details>`;
 }
@@ -390,7 +443,7 @@ async function load(){
   const {data:p,error}=await sb.from('produtos').select('*').order('criado');
   if(error){$('status').textContent='Não consegui carregar as peças. Verifique a internet.';return}
   prods=p||[];
-  for(const id of Object.keys(cart)){const x=prods.find(y=>y.id===id);if(!x)delete cart[id];else if(cart[id]>rest(x))cart[id]=rest(x)}
+  for(const id of Object.keys(cart)){const x=prods.find(y=>y.id===id);if(!x)delete cart[id];else if(!retro&&cart[id]>rest(x))cart[id]=rest(x)}
   if(equipe()){const {data:o}=await sb.from('pedidos').select('*').order('criado_em',{ascending:false}).limit(3000);peds=o||[]}else peds=[];
   $('status').textContent=admin()?'Toque nas peças para vender, ou no lápis para editar.':equipe()?'Toque nas peças para montar a venda do cliente.':'';
   render();
@@ -415,7 +468,7 @@ document.addEventListener('click',async e=>{
   if(m){setQ(m.dataset.min,(cart[m.dataset.min]||0)-1);return}
   if(ch){pay=ch.getAttribute('aria-pressed')==='true'?'':ch.textContent;for(const b of document.querySelectorAll('#pay .chip'))b.setAttribute('aria-pressed',b.textContent===pay);return}
   if(rm){if(!rm.dataset.sure){rm.dataset.sure='1';rm.textContent='Toque de novo para cancelar';return}
-    const {error}=await sb.from('pedidos').delete().eq('id',rm.dataset.rm);toast(error?'Não deu para cancelar':'Venda cancelada, itens voltaram ao estoque');load()}
+    const {error}=await sb.from('pedidos').delete().eq('id',rm.dataset.rm);toast(error?'Não deu para cancelar':'Venda cancelada');load()}
 });
 
 function renderSale(){
@@ -423,17 +476,18 @@ function renderSale(){
   $('sItems').innerHTML=l.length?l.map(x=>`<div class="r"><span>${esc(nomeP(x.p))}<small>${brl(x.p.preco)} cada · ${brl(x.q*x.p.preco)}</small></span><button type="button" data-min="${esc(x.p.id)}" aria-label="Tirar um">−</button><b>${x.q}</b><button type="button" data-add="${esc(x.p.id)}" aria-label="Mais um"${x.q>=rest(x.p)?' disabled':''}>+</button></div>`).join(''):'<div class="r"><span>Nenhum item</span></div>';
   $('sTot').textContent=brl(cartTotal());$('sSave').disabled=!l.length;
 }
-$('cbGo').onclick=()=>{$('sErr').textContent='';renderSale();$('sale').classList.add('on');setTimeout(()=>$('sCli').focus(),60)};
+$('cbGo').onclick=()=>{$('sErr').textContent='';$('sTitle').textContent=retro?'Lançar venda anterior':'Fechar venda';$('sSave').textContent=retro?'Lançar venda':'Registrar venda';$('sDate').hidden=!retro;if(retro)$('sDate').innerHTML=CALI+' Venda do dia '+esc(new Date(retro+'T12:00').toLocaleDateString('pt-BR'));renderSale();$('sale').classList.add('on');setTimeout(()=>$('sCli').focus(),60)};
 $('cbClr').onclick=()=>{cart={};render()};
 $('sCancel').onclick=()=>$('sale').classList.remove('on');
 $('sForm').onsubmit=async e=>{
   e.preventDefault();if(busy)return;const cli=$('sCli').value.trim(),l=cartList();
   if(!cli){$('sErr').textContent='Coloque o nome do cliente.';return}if(!pay){$('sErr').textContent='Escolha se foi Pix ou dinheiro.';return}if(!l.length)return;
   busy=true;$('sSave').textContent='Registrando…';
-  const {error}=await sb.from('pedidos').insert({cliente:cli,pagamento:pay||null,itens:l.map(x=>({produto_id:x.p.id,qtd:x.q}))});
-  busy=false;$('sSave').textContent='Registrar venda';
-  if(error){$('sErr').textContent=/Estoque insuficiente/.test(error.message)?error.message.replace(/^.*?(Estoque)/,'$1')+'. Atualize as quantidades.':'Não salvou. Tente de novo.';load();return}
-  toast('Venda de '+cli+' registrada: '+brl(cartTotal()));
+  const reg={cliente:cli,pagamento:pay||null,itens:l.map(x=>({produto_id:x.p.id,qtd:x.q}))};if(retro){reg.retroativa=true;reg.data_venda=retro}
+  const {error}=await sb.from('pedidos').insert(reg);
+  busy=false;$('sSave').textContent=retro?'Lançar venda':'Registrar venda';
+  if(error){$('sErr').textContent=/Data da venda/.test(error.message)?'A data precisa ser de antes de hoje.':/Estoque insuficiente/.test(error.message)?error.message.replace(/^.*?(Estoque)/,'$1')+'. Atualize as quantidades.':'Não salvou. Tente de novo.';load();return}
+  toast(retro?'Venda de '+cli+' ('+new Date(retro+'T12:00').toLocaleDateString('pt-BR')+') lançada: '+brl(cartTotal()):'Venda de '+cli+' registrada: '+brl(cartTotal()));
   cart={};pay='';$('sCli').value='';for(const b of document.querySelectorAll('#pay .chip'))b.setAttribute('aria-pressed','false');
   $('sale').classList.remove('on');load();
 };
@@ -480,7 +534,17 @@ $('fDel').onclick=async()=>{const b=$('fDel');if(!editing)return;
   const {error}=await sb.from('produtos').delete().eq('id',editing.id);
   if(error)$('fErr').textContent='Não deu para excluir.';else{closeAll();toast('Peça excluída');load()}};
 
-$('who').onclick=async()=>{if(user){await sb.auth.signOut();toast('Você saiu')}};
+const CALI='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>';
+const fecharMenu=()=>{$('menu').hidden=true;$('more').setAttribute('aria-expanded','false')};
+$('more').onclick=e=>{e.stopPropagation();const ab=$('menu').hidden;$('menu').hidden=!ab;$('more').setAttribute('aria-expanded',ab)};
+document.addEventListener('click',e=>{if(!$('menu').hidden&&!e.target.closest('#menu'))fecharMenu()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')fecharMenu()});
+const ymd=d=>d.toLocaleDateString('sv-SE',{timeZone:TZ});
+$('mRetro').onclick=()=>{fecharMenu();const ontem=new Date(Date.now()-864e5);$('retroDate').max=ymd(ontem);$('retroDate').min=ymd(new Date(Date.now()-730*864e5));
+  retro=retro||ymd(ontem);$('retroDate').value=retro;cart={};render();scrollTo({top:0,behavior:'smooth'});toast('Modo venda anterior: escolha a data e monte a venda')};
+$('retroDate').onchange=()=>{const v=$('retroDate').value;if(v&&v<=$('retroDate').max){retro=v}else{$('retroDate').value=retro;toast('A data precisa ser de antes de hoje')}};
+$('retroOff').onclick=()=>{retro=null;cart={};render();toast('Voltou para as vendas de hoje')};
+$('who').onclick=async()=>{fecharMenu();retro=null;cart={};if(user){await sb.auth.signOut();toast('Você saiu')}};
 $('lEye').onclick=()=>{const p=$('lPass');p.type=p.type==='password'?'text':'password';$('lEye').setAttribute('aria-label',p.type==='password'?'Mostrar senha':'Esconder senha')};
 $('lForm').onsubmit=async e=>{e.preventDefault();
   const u=$('lUser').value.trim().toLowerCase().replace(/[^a-z0-9._-]/g,'');if(!u)return;
