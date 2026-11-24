@@ -18,7 +18,7 @@
 --onCafe:light-dark(#fff6ea,#24170f);--ok:light-dark(#2f7d4f,#3f9d68);--warn:light-dark(#b3412c,#ff9c86);--tint:light-dark(#f5ecdf,#211810)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
-.tema{flex:none;width:44px;height:44px;min-height:0;padding:0;border-radius:50%;background:var(--card);border:2px solid var(--line);display:grid;place-items:center;color:var(--cafe);align-self:flex-start;margin:-4px 2px 0 -6px}
+.tema{position:relative;z-index:31;flex:none;width:44px;height:44px;min-height:0;padding:0;border-radius:50%;background:var(--card);border:2px solid var(--line);display:grid;place-items:center;color:var(--cafe);align-self:flex-start;margin:-4px 2px 0 -6px}
 .tema svg{width:22px;height:22px}
 .tema .sol{display:none}:root[data-theme=dark] .tema .sol{display:block}:root[data-theme=dark] .tema .lua{display:none}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]) .tema .sol{display:block}:root:not([data-theme=light]) .tema .lua{display:none}}
@@ -117,6 +117,29 @@ h2.sec{font-size:22px;font-weight:900;margin:28px 0 10px}
 .day{padding:10px 14px;background:var(--tint);font-weight:800;font-size:14px;display:flex;justify-content:space-between;border-top:1px solid var(--line)}
 .day:first-child{border-top:0}
 .note{font-size:14px;color:var(--soft);margin:8px 2px}
+.gate{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:max(24px,env(safe-area-inset-top)) 20px max(24px,env(safe-area-inset-bottom));overflow:auto;
+ background:radial-gradient(120% 80% at 50% 18%,light-dark(#fbf5ec,#2a1d15) 0%,light-dark(#efe4d4,#19120d) 55%,light-dark(#e6d6c0,#120c08) 100%)}
+.gate[hidden]{display:none}
+.gate .gdeco{position:absolute;inset:0;width:100%;height:100%;color:light-dark(#c9ab8c,#5a4232);pointer-events:none}
+.gbox{position:relative;width:min(380px,100%);text-align:center;animation:gin .7s cubic-bezier(.2,.8,.2,1) both}
+@keyframes gin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.glogo{width:150px;height:120px;color:var(--cafe);display:block;margin:0 auto 6px;filter:drop-shadow(0 6px 14px rgba(74,44,29,.14))}
+.gname{font:700 clamp(44px,12vw,58px)/1 'Cormorant Garamond',Georgia,serif;margin:0;color:var(--cafe);letter-spacing:.005em}
+.gsub{display:flex;align-items:center;justify-content:center;gap:12px;margin:8px 0 26px;font:italic 600 24px/1 'Cormorant Garamond',Georgia,serif;color:var(--soft)}
+.gsub span{height:1px;width:46px;background:currentColor;opacity:.5}
+.gform{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:22px 18px 18px;text-align:left;box-shadow:0 20px 50px -20px rgba(74,44,29,.35)}
+.gf{display:block;margin-bottom:14px;position:relative}
+.gf span{display:block;font-weight:800;font-size:14px;margin:0 0 6px 4px}
+.gf input{width:100%;min-height:54px;border:2px solid var(--line);border-radius:16px;background:var(--bg);padding:0 16px;font-size:18px;font-weight:700;letter-spacing:.02em}
+.gf input:focus{border-color:var(--cafe);outline:none}
+.gf .eye{position:absolute;right:6px;bottom:6px;width:42px;min-height:42px;padding:0;background:transparent;color:var(--soft);display:grid;place-items:center}
+.gf .eye svg{width:22px;height:22px}
+.gbtn{width:100%;min-height:56px;border-radius:16px;background:var(--cafe);color:var(--onCafe);font-size:18px;margin-top:2px;transition:transform .15s}
+.gbtn:active{transform:scale(.98)}.gbtn:disabled{opacity:.6}
+.gate .err{text-align:center;margin:-4px 0 8px}
+.gfoot{margin:22px 0 0;font-size:13px;color:var(--soft)}
+@media(prefers-reduced-motion:reduce){.gbox{animation:none}}
+@media(max-width:700px){.gate .gdeco{display:none}}
 .toast{position:fixed;left:50%;top:16px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-weight:700;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw;text-align:center;z-index:20}
 .toast.on{opacity:1}
 .sheet{position:fixed;inset:0;background:rgba(20,10,5,.5);display:none;align-items:flex-end;justify-content:center;z-index:9}
@@ -226,15 +249,21 @@ label.photo input{position:absolute;opacity:0;width:1px;height:1px}
   </form>
 </div>
 
-<div class="sheet" id="login" role="dialog" aria-modal="true" aria-labelledby="lTitle">
-  <form class="pan" id="lForm">
-    <h2 id="lTitle">Entrar</h2>
-    <label class="f">Usuário<input id="lUser" autocomplete="username" autocapitalize="characters" required placeholder="Ex.: MARY"></label>
-    <label class="f">Senha<input id="lPass" type="password" inputmode="numeric" autocomplete="current-password" required></label>
-    <div class="err" id="lErr"></div>
-    <div class="btns"><button type="button" class="sec2" id="lCancel">Cancelar</button><button type="submit" class="pri" id="lGo">Entrar</button></div>
-  </form>
-</div>
+<section class="gate" id="gate" aria-labelledby="gTitle" hidden>
+  <svg class="gdeco" viewBox="0 0 400 800" preserveAspectRatio="none" aria-hidden="true"><path d="M-20 640 C 90 560, 60 470, 150 440 S 300 470, 330 380 S 250 220, 420 160" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="1 9"/></svg>
+  <div class="gbox">
+    <svg class="glogo" viewBox="100 260 960 760" aria-hidden="true"><g transform="translate(0.000000,1254.000000) scale(0.100000,-0.100000)" fill="currentColor" stroke="none"> <path d="M9507 9460 c-21 -6 -52 -17 -70 -26 -43 -22 -86 -56 -517 -399 -199 -159 -278 -223 -449 -364 -25 -20 -83 -67 -131 -106 -370 -299 -752 -619 -1121 -937 l-206 -178 -475 0 c-550 0 -469 -17 -628 135 -52 50 -131 125 -175 166 -44 41 -114 107 -155 145 -373 352 -888 813 -1135 1016 -11 9 -67 56 -125 105 -293 245 -489 394 -546 413 -162 56 -318 0 -387 -139 -22 -46 -22 -51 -25 -556 -4 -661 16 -2709 28 -2935 47 -860 195 -1516 470 -2075 139 -282 295 -511 475 -699 86 -89 210 -195 259 -221 32 -17 66 -16 66 3 0 5 -23 47 -51 93 -218 358 -373 798 -473 1339 -123 669 -143 1065 -167 3373 -6 604 -10 1100 -8 1102 9 8 682 -592 1653 -1475 81 -74 166 -150 189 -168 l40 -32 672 2 671 3 165 140 c90 76 286 243 434 370 372 318 547 466 850 717 443 367 540 446 545 443 6 -4 -6 -818 -19 -1325 -8 -331 -8 -357 9 -380 l17 -25 318 -3 c316 -2 319 -2 342 20 l23 21 0 1097 c0 1210 3 1156 -63 1241 -64 83 -193 126 -300 99z"/> <path d="M1924 7076 c-3 -9 -2 -22 4 -29 35 -42 84 -220 112 -407 37 -247 117 -584 180 -760 130 -362 271 -547 615 -805 254 -191 384 -369 542 -744 129 -307 136 -321 159 -321 8 0 17 6 20 13 2 7 -20 99 -51 203 -145 490 -182 686 -195 1039 -9 249 -18 327 -56 478 -72 288 -197 509 -409 722 -122 122 -201 184 -386 303 -190 122 -497 312 -514 318 -8 4 -17 -1 -21 -10z m540 -738 c20 -29 61 -87 92 -128 151 -203 345 -519 444 -725 83 -173 191 -468 190 -519 -1 -23 -54 67 -270 454 -204 365 -517 970 -501 970 4 0 25 -24 45 -52z"/> <path d="M9194 6841 c-38 -23 -44 -48 -44 -193 0 -102 1 -110 25 -133 l24 -25 319 0 c404 0 372 -15 372 176 0 75 -4 144 -10 154 -19 35 -64 40 -364 40 -268 0 -293 -2 -322 -19z"/> <path d="M9253 6365 c-11 -8 -23 -26 -27 -39 -8 -33 107 -354 136 -378 17 -15 41 -18 147 -18 69 0 136 3 148 6 23 6 44 47 117 236 51 130 55 159 26 188 -19 19 -33 20 -273 20 -207 0 -256 -3 -274 -15z"/> <path d="M9426 5817 c-11 -8 -20 -36 -27 -82 -19 -140 -70 -252 -156 -345 -100 -109 -253 -195 -468 -264 -143 -46 -207 -61 -591 -145 -454 -99 -640 -154 -819 -244 -138 -69 -257 -175 -298 -264 -70 -157 27 -320 257 -432 154 -75 240 -102 716 -225 518 -134 736 -217 847 -322 83 -78 46 -148 -132 -248 -282 -158 -763 -270 -1415 -328 -197 -18 -920 -17 -1100 0 -551 54 -952 180 -1026 323 -55 108 77 243 343 348 118 47 253 82 429 113 110 19 167 22 394 22 168 1 306 -4 377 -13 102 -12 115 -12 138 3 77 51 78 161 0 212 -73 48 -671 58 -942 16 -507 -79 -877 -268 -994 -507 -31 -64 -34 -78 -33 -155 0 -69 5 -95 26 -140 112 -239 506 -407 1132 -481 596 -70 1318 -42 1943 77 343 64 584 135 782 230 135 64 218 122 293 202 83 90 103 138 103 247 0 81 -3 95 -29 143 -38 68 -136 160 -223 208 -169 95 -355 157 -803 267 -146 36 -314 80 -374 96 -242 68 -401 144 -439 209 -19 31 -19 36 -4 67 62 130 392 256 1022 390 585 124 831 223 1024 414 81 80 119 135 171 243 46 97 68 175 77 273 8 96 -2 105 -106 105 -46 0 -84 -5 -95 -13z"/> <path d="M1710 5024 c-79 -8 -294 -46 -312 -55 -28 -15 -22 -25 40 -60 127 -71 229 -173 360 -358 192 -272 301 -411 406 -520 260 -266 489 -396 889 -501 290 -76 426 -147 662 -346 192 -162 300 -244 321 -244 23 0 39 24 27 43 -8 15 -89 110 -178 212 -246 279 -366 455 -550 805 -177 335 -255 450 -407 596 -222 214 -460 342 -753 404 -75 16 -145 22 -280 25 -99 1 -200 1 -225 -1z m615 -446 c318 -182 671 -472 886 -728 30 -35 60 -71 66 -78 7 -7 33 -40 58 -73 75 -96 41 -80 -160 77 -142 111 -261 215 -526 460 -96 88 -238 212 -315 275 -78 63 -157 126 -175 142 l-34 27 65 -31 c36 -17 97 -49 135 -71z"/> </g></svg>
+    <h1 class="gname" id="gTitle">Mocca Studio</h1>
+    <p class="gsub"><span></span>Vendas<span></span></p>
+    <form class="gform" id="lForm" autocomplete="on">
+      <label class="gf"><span>Usuário</span><input id="lUser" autocomplete="username" autocapitalize="characters" spellcheck="false" required placeholder="Seu usuário"></label>
+      <label class="gf"><span>Senha</span><input id="lPass" type="password" inputmode="numeric" autocomplete="current-password" required placeholder="••••"><button type="button" class="eye" id="lEye" aria-label="Mostrar senha"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></label>
+      <div class="err" id="lErr" role="alert"></div>
+      <button type="submit" class="gbtn" id="lGo">Entrar</button>
+    </form>
+    <p class="gfoot">Impressão 3D feita com carinho · @moccastudio.3d</p>
+  </div>
+</section>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.js"></script>
 <script>
@@ -257,7 +286,7 @@ const hoje=()=>dia(new Date());
 
 const ORDEM=['Artigos de Libras','Artigos de Natal','Articulados','Chaveiros','Decoração'];
 const abertos=new Set();
-let sb=null,prods=[],peds=[],user=null,perfil=null,cart={},editing=null,newPhoto=null,busy=false,pay='';
+let pronto=false,sb=null,prods=[],peds=[],user=null,perfil=null,cart={},editing=null,newPhoto=null,busy=false,pay='';
 const admin=()=>perfil&&perfil.papel==='admin';
 const equipe=()=>!!perfil;
 const rest=p=>Math.max(0,(p.estoque||0)-(p.vendidos||0));
@@ -299,6 +328,7 @@ function cardHtml(p){
 }
 function render(){
   $('whoName').textContent=perfil?'Olá, '+perfil.usuario:'';
+  $('gate').hidden=!!perfil||!pronto;if(user&&!perfil&&pronto)$('lErr').textContent='Este usuário ainda não tem acesso às vendas.';
   $('who').textContent=user?'Sair':'Entrar';
   $('board').hidden=!admin();$('tHist').hidden=!admin();$('add').hidden=!admin();$('dia').hidden=!equipe();
   if(!admin()&&!$('vHist').hidden)setTab('vit');
@@ -360,6 +390,7 @@ async function refreshUser(){
   const {data}=await sb.auth.getSession();user=data.session?data.session.user:null;perfil=null;
   if(user){const {data:pf}=await sb.from('perfis').select('usuario,papel').eq('user_id',user.id).maybeSingle();perfil=pf||null}
   if(!perfil)cart={};
+  pronto=true;
   await load();
 }
 
@@ -401,9 +432,9 @@ function openForm(p){
   const u=p&&fotoUrl(p.foto);$('thumb').src=u||'';$('thumb').style.visibility=u?'visible':'hidden';$('phTxt').textContent=u?'Trocar foto':'Adicionar foto';
   $('file').value='';$('sheet').classList.add('on');
 }
-const closeAll=()=>{for(const id of ['sheet','login','sale'])$(id).classList.remove('on')};
-$('add').onclick=()=>openForm();$('fCancel').onclick=closeAll;$('lCancel').onclick=closeAll;
-for(const id of ['sheet','login','sale'])$(id).onclick=e=>{if(e.target===$(id))closeAll()};
+const closeAll=()=>{for(const id of ['sheet','sale'])$(id).classList.remove('on')};
+$('add').onclick=()=>openForm();$('fCancel').onclick=closeAll;
+for(const id of ['sheet','sale'])$(id).onclick=e=>{if(e.target===$(id))closeAll()};
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
 
 function shrink(file){return new Promise((res,rej)=>{const img=new Image(),url=URL.createObjectURL(file);
@@ -435,14 +466,15 @@ $('fDel').onclick=async()=>{const b=$('fDel');if(!editing)return;
   const {error}=await sb.from('produtos').delete().eq('id',editing.id);
   if(error)$('fErr').textContent='Não deu para excluir.';else{closeAll();toast('Peça excluída');load()}};
 
-$('who').onclick=async()=>{if(user){await sb.auth.signOut();toast('Você saiu')}else{$('lErr').textContent='';$('login').classList.add('on');setTimeout(()=>$('lUser').focus(),60)}};
+$('who').onclick=async()=>{if(user){await sb.auth.signOut();toast('Você saiu')}};
+$('lEye').onclick=()=>{const p=$('lPass');p.type=p.type==='password'?'text':'password';$('lEye').setAttribute('aria-label',p.type==='password'?'Mostrar senha':'Esconder senha')};
 $('lForm').onsubmit=async e=>{e.preventDefault();
   const u=$('lUser').value.trim().toLowerCase().replace(/[^a-z0-9._-]/g,'');if(!u)return;
-  $('lErr').textContent='';$('lGo').disabled=true;
+  $('lErr').textContent='';$('lGo').disabled=true;$('lGo').textContent='Entrando…';
   const {error}=await sb.auth.signInWithPassword({email:u+DOMAIN,password:$('lPass').value});
-  $('lGo').disabled=false;
+  $('lGo').disabled=false;$('lGo').textContent='Entrar';
   if(error){$('lErr').textContent='Usuário ou senha incorretos.';return}
-  $('lPass').value='';closeAll();};
+  $('lPass').value='';};
 
 $('tema').onclick=()=>{const r=document.documentElement,escuro=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches,novo=escuro?'light':'dark';r.dataset.theme=novo;document.querySelector('meta[name=theme-color]').content=novo==='dark'?'#19120d':'#4a2c1d';try{localStorage.setItem('mocca-tema',novo)}catch(e){}};
 setTab('vit');
