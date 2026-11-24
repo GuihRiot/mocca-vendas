@@ -185,6 +185,18 @@ h2.sec{font-size:22px;font-weight:900;margin:28px 0 10px}
 .sze{position:absolute;top:4px;right:4px;width:32px;min-height:32px;padding:0;background:transparent;color:var(--soft);display:grid;place-items:center}.sze svg{width:15px;height:15px}
 @media(max-width:520px){.appbar{border-radius:0 0 22px 22px;gap:8px;padding-bottom:12px}.appbar .logo{width:44px;height:38px}.appbar .sub span{display:none}.wn{display:none}.av{width:36px;height:36px;font-size:15px}
  .card.grp{grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr)}.card.grp .ph{min-height:200px}.sizes{grid-template-columns:1fr}.szb{padding:8px}.szl{width:36px;height:36px;font-size:17px}}
+.ctl{margin-bottom:8px}.ctl .ch{display:flex;align-items:baseline;justify-content:space-between;gap:10px}.ctl .cs{font-weight:900;color:var(--soft);white-space:nowrap}
+.rc{padding:12px 14px;border-top:1px solid var(--line)}.rc:first-child{border-top:0}
+.rc .rh{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.rc .rh b{font-size:17px}.rc .v{white-space:nowrap}
+.rc .its{font-size:14px;color:var(--soft);margin:6px 0 8px}.rc .its div{display:flex;justify-content:space-between;gap:10px}
+.rb{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.rb span{font-weight:800;font-size:14px;margin-right:auto}.rb button{background:var(--ok);color:#fff;min-height:42px}
+.cr{display:flex;align-items:center;gap:10px;padding:8px 12px;border-top:1px solid var(--line)}.cr:first-child{border-top:0}
+.cr img,.cr .ni{width:46px;height:46px;border-radius:12px;object-fit:cover;background:var(--tint);flex:none}
+.cn2{flex:1;font-weight:800;line-height:1.2}.cn2 small{display:block;font-size:12px;color:var(--soft);font-weight:700}
+.cr button{width:40px;min-height:40px;padding:0;background:var(--tint);border:2px solid var(--line);font-size:19px}.cr b{min-width:24px;text-align:center;font-size:18px}
+.conadd{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}.conadd select,.conadd input{min-height:46px;border:2px solid var(--line);border-radius:12px;background:var(--card);padding:0 10px;font-size:16px;font-weight:700}
+.conadd select{flex:1 1 200px}.conadd input{width:80px}
+.pill.rec{background:#fde2c4;color:#8a3d0c}
 .toast{position:fixed;left:50%;top:16px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-weight:700;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw;text-align:center;z-index:20}
 .toast.on{opacity:1}
 .sheet{position:fixed;inset:0;background:rgba(20,10,5,.5);display:none;align-items:flex-end;justify-content:center;z-index:9}
@@ -226,14 +238,14 @@ label.photo input{position:absolute;opacity:0;width:1px;height:1px}
       <span class="av" id="whoAv" aria-hidden="true"></span><span class="wn"><b id="whoName"></b><small id="whoRole"></small></span>
       <button class="more" id="more" aria-label="Mais opções" aria-haspopup="menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
       <div class="menu" id="menu" role="menu" hidden>
-        <button role="menuitem" id="mRetro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Lançar venda anterior<small>Vendas feitas antes do app</small></span></button>
+        <button role="menuitem" id="mRetro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Lançar venda de antes do app<small>Escolha a data e registre</small></span></button>
         <button role="menuitem" id="who"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l5-5-5-5M15 12H4"/></svg><span>Sair</span></button>
       </div>
     </div>
   </header>
   <div class="retro" id="retroBar" hidden>
     <span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
-    <div class="rt"><b>Lançando vendas anteriores</b><small>Não aparecem nas vendas de hoje e não mexem no estoque.</small></div>
+    <div class="rt"><b>Lançando vendas de antes do app</b><small>Ficam registradas no Controle e não mexem no estoque.</small></div>
     <label class="rd">Data da venda<input type="date" id="retroDate"></label>
     <button class="rx" id="retroOff">Concluir</button>
   </div>
@@ -242,12 +254,13 @@ label.photo input{position:absolute;opacity:0;width:1px;height:1px}
     <div class="main"><div class="lbl">Faturamento de hoje</div><div class="big" id="fHoje">R$ 0,00</div><div class="split" id="fSplit"></div></div>
     <div><div class="lbl">No mês</div><div class="mid" id="fMes">R$ 0</div></div>
     <div><div class="lbl">Total geral</div><div class="mid" id="fTot">R$ 0</div></div>
-    <div><div class="lbl">Peças vendidas</div><div class="mid" id="nVend">0</div></div>
+    <div><div class="lbl">A receber</div><div class="mid" id="fRec">R$ 0</div></div><span id="nVend" hidden></span>
     <div><div class="lbl">Valor em estoque</div><div class="mid" id="vEst">R$ 0</div></div>
   </section>
 
   <div class="tabs" role="tablist">
     <button class="tab" role="tab" id="tVit" aria-selected="true">Vitrine</button>
+    <button class="tab" role="tab" id="tCtl" aria-selected="false" hidden>Controle</button>
     <button class="tab" role="tab" id="tHist" aria-selected="false" hidden>Histórico</button>
     <input class="search" id="q" type="search" placeholder="Buscar peça…" aria-label="Buscar peça">
     <button class="addp" id="add" hidden>+ Nova peça</button>
@@ -263,6 +276,14 @@ label.photo input{position:absolute;opacity:0;width:1px;height:1px}
     </div>
   </div>
   <div id="vHist" hidden><div class="list" id="hist"></div></div>
+  <div id="vCtl" hidden>
+    <section class="ctl"><div class="ch"><h2 class="sec">A receber</h2><span class="cs" id="recTot"></span></div><div class="list" id="recList"></div></section>
+    <section class="ctl"><div class="ch"><h2 class="sec">Peças com a Mari</h2><span class="cs" id="conTot"></span></div>
+      <div class="list" id="conList"></div>
+      <form class="conadd" id="conAdd"><select id="conProd" aria-label="Peça"></select><input id="conQtd" type="number" min="1" step="1" value="1" inputmode="numeric" aria-label="Quantidade"><button class="pri" type="submit">Adicionar</button></form>
+    </section>
+    <section class="ctl"><div class="ch"><h2 class="sec">Vendas antes do app</h2><span class="cs" id="antTot"></span></div><div class="list" id="antAppList"></div></section>
+  </div>
 </div>
 
 <div class="cartbar" id="cartbar" hidden>
@@ -278,7 +299,8 @@ label.photo input{position:absolute;opacity:0;width:1px;height:1px}
     <div class="sdate" id="sDate" hidden></div>
     <label class="f">Nome do cliente<input id="sCli" required maxlength="80" autocomplete="off" placeholder="Ex.: Roberta"></label>
     <div class="f" style="margin-bottom:0">Forma de pagamento</div>
-    <div class="chips" id="pay"><button type="button" class="chip" aria-pressed="false">Pix</button><button type="button" class="chip" aria-pressed="false">Dinheiro</button></div>
+    <div class="chips" id="pay"><button type="button" class="chip" aria-pressed="false">Pix</button><button type="button" class="chip" aria-pressed="false">Dinheiro</button><button type="button" class="chip" aria-pressed="false">A receber</button></div>
+    <label class="f" id="recBox" hidden>Receber em<input type="date" id="sRec"></label>
     <div class="cl" id="sItems"></div>
     <div class="tot"><span>Total</span><span id="sTot">R$ 0,00</span></div>
     <div class="err" id="sErr"></div>
@@ -345,7 +367,7 @@ const hoje=()=>dia(new Date());
 
 const ORDEM=['Artigos de Libras','Artigos de Natal','Articulados','Chaveiros','Decoração'];
 const abertos=new Set();
-let retro=null,pronto=false,sb=null,prods=[],peds=[],user=null,perfil=null,cart={},editing=null,newPhoto=null,busy=false,pay='';
+let aba='vit',cons=[],retro=null,pronto=false,sb=null,prods=[],peds=[],user=null,perfil=null,cart={},editing=null,newPhoto=null,busy=false,pay='';
 const admin=()=>perfil&&perfil.papel==='admin';
 const equipe=()=>!!perfil;
 const rest=p=>Math.max(0,(p.estoque||0)-(p.vendidos||0));
@@ -389,16 +411,16 @@ function render(){
   $('retroBar').hidden=!retro;if(retro&&!equipe()){retro=null}
   $('gate').hidden=!!perfil||!pronto;if(user&&!perfil&&pronto)$('lErr').textContent='Este usuário ainda não tem acesso às vendas.';
   
-  $('board').hidden=!admin();$('tHist').hidden=!admin();$('add').hidden=!admin();$('dia').hidden=!equipe();
+  $('board').hidden=!admin();$('tHist').hidden=!admin();$('tCtl').hidden=!equipe();$('add').hidden=!admin()||aba!=='vit';if(!equipe()&&aba==='ctl')setTab('vit');$('dia').hidden=!equipe();
   if(!admin()&&!$('vHist').hidden)setTab('vit');
   $('tVit').textContent=retro?'Vender (data anterior)':equipe()?'Vender':'Vitrine';
   if(admin()){
     const h=hoje(),m=mes(new Date());
-    const ph=peds.filter(p=>dia(p.criado_em)===h),soma=(l,f)=>l.filter(p=>p.pagamento===f).reduce((a,p)=>a+Number(p.total),0);
+    const pg=peds.filter(p=>p.status!=='a_receber'),ph=pg.filter(p=>dia(p.criado_em)===h),soma=(l,f)=>l.filter(p=>p.pagamento===f).reduce((a,p)=>a+Number(p.total),0);
     $('fHoje').textContent=brl(ph.reduce((a,p)=>a+Number(p.total),0));
     $('fSplit').innerHTML=`<span>Pix <b>${brl(soma(ph,'Pix'))}</b></span><span>Dinheiro <b>${brl(soma(ph,'Dinheiro'))}</b></span>`;
-    $('fMes').textContent=brl0(peds.filter(p=>mes(p.criado_em)===m).reduce((a,p)=>a+Number(p.total),0));
-    $('fTot').textContent=brl0(peds.reduce((a,p)=>a+Number(p.total),0));
+    $('fMes').textContent=brl0(pg.filter(p=>mes(p.criado_em)===m).reduce((a,p)=>a+Number(p.total),0));
+    $('fTot').textContent=brl0(pg.reduce((a,p)=>a+Number(p.total),0));$('fRec').textContent=brl0(peds.filter(p=>p.status==='a_receber').reduce((a,p)=>a+Number(p.total),0));
     $('nVend').textContent=prods.reduce((a,p)=>a+(p.vendidos||0),0);
     $('vEst').textContent=brl0(prods.reduce((a,p)=>a+rest(p)*(Number(p.preco)||0),0));
   }
@@ -421,30 +443,56 @@ function render(){
     $('diaList').innerHTML=dd.length?dd.map(pedHtml).join(''):'<div class="empty" style="border:0"><b>Nenhuma venda hoje ainda</b>Toque nas peças para montar a venda.</div>';
     $('antBox').hidden=!ant.length&&!retro;$('antList').innerHTML=ant.length?ant.map(pedHtml).join(''):'<div class="empty" style="border:0"><b>Nenhuma venda anterior lançada hoje</b>Escolha a data acima e monte a venda.</div>';
   }
+  renderCtl();
   if(admin()){
     if(!peds.length)$('hist').innerHTML='<div class="empty" style="border:0"><b>Sem vendas ainda</b></div>';
-    else{const tots={},cnt={},pix={},din={};peds.forEach(p=>{const d=dia(p.criado_em);tots[d]=(tots[d]||0)+Number(p.total);cnt[d]=(cnt[d]||0)+1;if(p.pagamento==='Pix')pix[d]=(pix[d]||0)+Number(p.total);if(p.pagamento==='Dinheiro')din[d]=(din[d]||0)+Number(p.total)});
-      let html='',cur='';peds.forEach(p=>{const d=dia(p.criado_em);if(d!==cur){cur=d;html+=`<div class="day"><span>${d===hoje()?'Hoje':esc(d)} · ${cnt[d]} venda${cnt[d]>1?'s':''}</span><span>${brl(tots[d])}<small class="dsplit">Pix ${brl(pix[d]||0)} · Dinheiro ${brl(din[d]||0)}</small></span></div>`}html+=pedHtml(p)});
+    else{const tots={},cnt={},pix={},din={};peds.filter(p=>p.status!=='a_receber').forEach(p=>{const d=dia(p.criado_em);tots[d]=(tots[d]||0)+Number(p.total);cnt[d]=(cnt[d]||0)+1;if(p.pagamento==='Pix')pix[d]=(pix[d]||0)+Number(p.total);if(p.pagamento==='Dinheiro')din[d]=(din[d]||0)+Number(p.total)});
+      let html='',cur='';peds.forEach(p=>{const d=dia(p.criado_em);if(d!==cur){cur=d;html+=`<div class="day"><span>${d===hoje()?'Hoje':esc(d)} · ${cnt[d]} venda${cnt[d]>1?'s':''}</span><span>${brl(tots[d]||0)}<small class="dsplit">Pix ${brl(pix[d]||0)} · Dinheiro ${brl(din[d]||0)}</small></span></div>`}html+=pedHtml(p)});
       $('hist').innerHTML=html}
   }
+}
+function renderCtl(){
+  if(!equipe())return;
+  const rec=peds.filter(p=>p.status==='a_receber').sort((a,b)=>String(a.receber_em||'9').localeCompare(String(b.receber_em||'9')));
+  $('recTot').textContent=rec.length?brl(rec.reduce((a,p)=>a+Number(p.total),0)):'';
+  $('recList').innerHTML=rec.length?rec.map(p=>{const its=Array.isArray(p.itens)?p.itens:[];
+    return `<div class="rc"><div class="rh"><div><b>${esc(p.cliente)}</b><div class="meta">${p.receber_em?'receber '+esc(new Date(p.receber_em+'T12:00').toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'})):'sem data'} · ${Number(p.qtd_itens)||0} itens</div></div><b class="v">${brl(p.total)}</b></div>
+      <div class="its">${its.map(i=>`<div><span>${Number(i.qtd)||0}× ${esc(i.nome)}</span><span>${brl((Number(i.preco)||0)*(Number(i.qtd)||0))}</span></div>`).join('')}</div>
+      <div class="rb"><span>Recebeu?</span><button data-rec="${esc(p.id)}" data-f="Pix">Pix</button><button data-rec="${esc(p.id)}" data-f="Dinheiro">Dinheiro</button></div></div>`}).join(''):'<div class="empty" style="border:0"><b>Nada a receber</b>Vendas marcadas como “a receber” aparecem aqui.</div>';
+  const cm=cons.filter(c=>c.qtd>0).map(c=>({c,p:prods.find(x=>x.id===c.produto_id)})).filter(x=>x.p).sort((a,b)=>nomeP(a.p).localeCompare(nomeP(b.p),'pt-BR'));
+  const nPec=cm.reduce((a,x)=>a+x.c.qtd,0),vPec=cm.reduce((a,x)=>a+x.c.qtd*(Number(x.p.preco)||0),0);
+  $('conTot').textContent=nPec?`${nPec} peça${nPec>1?'s':''} · ${brl(vPec)}`:'';
+  $('conList').innerHTML=cm.length?cm.map(({c,p})=>{const u=fotoUrl(p.foto),k=esc(c.pessoa+'|'+c.produto_id);
+    return `<div class="cr">${u?`<img src="${esc(u)}" alt="">`:'<span class="ni"></span>'}<span class="cn2">${esc(nomeP(p))}<small>${Number(p.preco)>0?brl(p.preco)+' cada':'sem preço'}</small></span>
+      <button data-cq="${k}" data-d="-1" aria-label="Tirar um">−</button><b>${c.qtd}</b><button data-cq="${k}" data-d="1" aria-label="Mais um">+</button></div>`}).join(''):'<div class="empty" style="border:0"><b>Nenhuma peça com a Mari</b>Adicione abaixo as peças que estão com ela.</div>';
+  $('conProd').innerHTML=prods.slice().sort((a,b)=>nomeP(a).localeCompare(nomeP(b),'pt-BR')).map(p=>`<option value="${esc(p.id)}">${esc(nomeP(p))}</option>`).join('');
+  const aa=peds.filter(p=>p.antes_app&&p.status!=='a_receber');
+  $('antTot').textContent=aa.length&&admin()?brl(aa.reduce((a,p)=>a+Number(p.total),0)):'';
+  $('antAppList').innerHTML=aa.length?aa.map(pedHtml).join(''):'<div class="empty" style="border:0"><b>Nenhuma ainda</b>Use ⋯ → Lançar venda de antes do app.</div>';
+}
+async function mudaCons(pessoa,pid,nova){
+  nova=Math.max(0,nova);const ex=cons.find(c=>c.pessoa===pessoa&&c.produto_id===pid);
+  const r=nova===0?await sb.from('consignado').delete().eq('pessoa',pessoa).eq('produto_id',pid):await sb.from('consignado').upsert({pessoa,produto_id:pid,qtd:nova,atualizado_em:new Date().toISOString()});
+  if(r.error){toast('Não salvou, tente de novo');return}
+  if(ex)ex.qtd=nova;else cons.push({pessoa,produto_id:pid,qtd:nova});render();
 }
 function pedHtml(p){
   const its=Array.isArray(p.itens)?p.itens:[];
   const podeApagar=admin()||(user&&p.vendedor===user.id);
-  return `<details class="ped"><summary><div class="t"><b>${esc(p.cliente)}</b>${p.pagamento?`<span class="pill">${esc(p.pagamento)}</span>`:''}${p.retroativa?'<span class="pill ant">anterior</span>':''}<div class="meta">${p.retroativa?'venda de '+esc(dia(p.criado_em))+' · lançada '+hora(p.lancado_em):hora(p.criado_em)} · ${Number(p.qtd_itens)||0} ite${Number(p.qtd_itens)===1?'m':'ns'}${admin()&&p.vendedor_nome?' · por '+esc(p.vendedor_nome):''}</div></div><div class="v">${brl(p.total)}</div></summary>
+  return `<details class="ped"><summary><div class="t"><b>${esc(p.cliente)}</b>${p.pagamento?`<span class="pill">${esc(p.pagamento)}</span>`:''}${p.status==='a_receber'?`<span class="pill rec">a receber${p.receber_em?' '+esc(new Date(p.receber_em+'T12:00').toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'2-digit'})):''}</span>`:''}${p.antes_app?'<span class="pill ant">antes do app</span>':p.retroativa?'<span class="pill ant">anterior</span>':''}<div class="meta">${p.retroativa?'venda de '+esc(dia(p.criado_em))+' · lançada '+hora(p.lancado_em):hora(p.criado_em)} · ${Number(p.qtd_itens)||0} ite${Number(p.qtd_itens)===1?'m':'ns'}${admin()&&p.vendedor_nome?' · por '+esc(p.vendedor_nome):''}</div></div><div class="v">${brl(p.total)}</div></summary>
     <div class="its">${its.map(i=>`<div><span>${Number(i.qtd)||0}× ${esc(i.nome)}</span><span>${brl((Number(i.preco)||0)*(Number(i.qtd)||0))}</span></div>`).join('')}
     ${podeApagar?`<button class="x" data-rm="${esc(p.id)}">Cancelar esta venda</button>`:''}</div></details>`;
 }
-function setTab(t){$('tVit').setAttribute('aria-selected',t==='vit');$('tHist').setAttribute('aria-selected',t==='hist');$('vVit').hidden=t!=='vit';$('vHist').hidden=t!=='hist';$('q').hidden=t!=='vit'}
+function setTab(t){aba=t;$('tVit').setAttribute('aria-selected',t==='vit');$('tHist').setAttribute('aria-selected',t==='hist');$('tCtl').setAttribute('aria-selected',t==='ctl');$('vVit').hidden=t!=='vit';$('vHist').hidden=t!=='hist';$('vCtl').hidden=t!=='ctl';$('q').hidden=t!=='vit';$('add').hidden=!admin()||t!=='vit'}
 $('grid').addEventListener('toggle',e=>{const d=e.target;if(d.classList&&d.classList.contains('cat')){if(d.open)abertos.add(d.dataset.cat);else abertos.delete(d.dataset.cat)}},true);
-$('tVit').onclick=()=>setTab('vit');$('tHist').onclick=()=>setTab('hist');$('q').oninput=render;
+$('tCtl').onclick=()=>setTab('ctl');$('tVit').onclick=()=>setTab('vit');$('tHist').onclick=()=>setTab('hist');$('q').oninput=render;
 
 async function load(){
   const {data:p,error}=await sb.from('produtos').select('*').order('criado');
   if(error){$('status').textContent='Não consegui carregar as peças. Verifique a internet.';return}
   prods=p||[];
   for(const id of Object.keys(cart)){const x=prods.find(y=>y.id===id);if(!x)delete cart[id];else if(!retro&&cart[id]>rest(x))cart[id]=rest(x)}
-  if(equipe()){const {data:o}=await sb.from('pedidos').select('*').order('criado_em',{ascending:false}).limit(3000);peds=o||[]}else peds=[];
+  if(equipe()){const {data:o}=await sb.from('pedidos').select('*').order('criado_em',{ascending:false}).limit(3000);peds=o||[];const {data:cs}=await sb.from('consignado').select('*');cons=cs||[]}else{peds=[];cons=[]}
   $('status').textContent=admin()?'Toque nas peças para vender, ou no lápis para editar.':equipe()?'Toque nas peças para montar a venda do cliente.':'';
   render();
 }
@@ -459,6 +507,11 @@ async function refreshUser(){
 document.addEventListener('click',async e=>{
   const a=e.target.closest('[data-add]'),m=e.target.closest('[data-min]'),ed=e.target.closest('[data-ed]'),rm=e.target.closest('[data-rm]'),ch=e.target.closest('#pay .chip');
   if(ed){openForm(prods.find(p=>p.id===ed.dataset.ed));return}
+  const rc=e.target.closest('[data-rec]');
+  if(rc){if(!rc.dataset.sure){document.querySelectorAll('[data-rec]').forEach(b=>{delete b.dataset.sure;b.textContent=b.dataset.f});rc.dataset.sure='1';rc.textContent='Confirmar '+rc.dataset.f+'?';return}
+    rc.disabled=true;const {error}=await sb.rpc('marcar_recebido',{p_id:rc.dataset.rec,p_forma:rc.dataset.f});toast(error?'Não deu para marcar':'Recebido em '+rc.dataset.f+'!');load();return}
+  const cq=e.target.closest('[data-cq]');
+  if(cq){const [pe,pid]=cq.dataset.cq.split('|');const c=cons.find(x=>x.pessoa===pe&&x.produto_id===pid);mudaCons(pe,pid,(c?c.qtd:0)+Number(cq.dataset.d));return}
   const wy=e.target.closest('[data-why]');
   if(wy){const p=prods.find(x=>x.id===wy.dataset.why);if(!p)return;const sp=!(Number(p.preco)>0),t=p.estoque||0;
     const falta=sp&&!t?'o preço e a quantidade':sp?'o preço':!t?'a quantidade':'';
@@ -466,7 +519,7 @@ document.addEventListener('click',async e=>{
     toast(falta?'Essa peça ainda está sem '+falta+'. Peça para o GUIH ou a PAOLA cadastrar.':'Essa peça está esgotada.');return}
   if(a&&!a.disabled){setQ(a.dataset.add,(cart[a.dataset.add]||0)+1);return}
   if(m){setQ(m.dataset.min,(cart[m.dataset.min]||0)-1);return}
-  if(ch){pay=ch.getAttribute('aria-pressed')==='true'?'':ch.textContent;for(const b of document.querySelectorAll('#pay .chip'))b.setAttribute('aria-pressed',b.textContent===pay);return}
+  if(ch){pay=ch.getAttribute('aria-pressed')==='true'?'':ch.textContent;for(const b of document.querySelectorAll('#pay .chip'))b.setAttribute('aria-pressed',b.textContent===pay);$('recBox').hidden=pay!=='A receber';if(pay==='A receber'&&!$('sRec').value)$('sRec').value=ymd(new Date(Date.now()+2*864e5));return}
   if(rm){if(!rm.dataset.sure){rm.dataset.sure='1';rm.textContent='Toque de novo para cancelar';return}
     const {error}=await sb.from('pedidos').delete().eq('id',rm.dataset.rm);toast(error?'Não deu para cancelar':'Venda cancelada');load()}
 });
@@ -481,14 +534,14 @@ $('cbClr').onclick=()=>{cart={};render()};
 $('sCancel').onclick=()=>$('sale').classList.remove('on');
 $('sForm').onsubmit=async e=>{
   e.preventDefault();if(busy)return;const cli=$('sCli').value.trim(),l=cartList();
-  if(!cli){$('sErr').textContent='Coloque o nome do cliente.';return}if(!pay){$('sErr').textContent='Escolha se foi Pix ou dinheiro.';return}if(!l.length)return;
+  if(!cli){$('sErr').textContent='Coloque o nome do cliente.';return}if(!pay){$('sErr').textContent='Escolha Pix, dinheiro ou a receber.';return}if(!l.length)return;
   busy=true;$('sSave').textContent='Registrando…';
-  const reg={cliente:cli,pagamento:pay||null,itens:l.map(x=>({produto_id:x.p.id,qtd:x.q}))};if(retro){reg.retroativa=true;reg.data_venda=retro}
+  const reg={cliente:cli,pagamento:pay==='A receber'?null:pay,itens:l.map(x=>({produto_id:x.p.id,qtd:x.q}))};if(pay==='A receber'){reg.status='a_receber';reg.receber_em=$('sRec').value||null}if(retro){reg.retroativa=true;reg.data_venda=retro;reg.antes_app=true}
   const {error}=await sb.from('pedidos').insert(reg);
   busy=false;$('sSave').textContent=retro?'Lançar venda':'Registrar venda';
-  if(error){$('sErr').textContent=/Data da venda/.test(error.message)?'A data precisa ser de antes de hoje.':/Estoque insuficiente/.test(error.message)?error.message.replace(/^.*?(Estoque)/,'$1')+'. Atualize as quantidades.':'Não salvou. Tente de novo.';load();return}
+  if(error){$('sErr').textContent=/Data da venda/.test(error.message)?'A data não pode ser no futuro.':/Estoque insuficiente/.test(error.message)?error.message.replace(/^.*?(Estoque)/,'$1')+'. Atualize as quantidades.':'Não salvou. Tente de novo.';load();return}
   toast(retro?'Venda de '+cli+' ('+new Date(retro+'T12:00').toLocaleDateString('pt-BR')+') lançada: '+brl(cartTotal()):'Venda de '+cli+' registrada: '+brl(cartTotal()));
-  cart={};pay='';$('sCli').value='';for(const b of document.querySelectorAll('#pay .chip'))b.setAttribute('aria-pressed','false');
+  cart={};pay='';$('sCli').value='';$('recBox').hidden=true;$('sRec').value='';for(const b of document.querySelectorAll('#pay .chip'))b.setAttribute('aria-pressed','false');
   $('sale').classList.remove('on');load();
 };
 
@@ -540,10 +593,11 @@ $('more').onclick=e=>{e.stopPropagation();const ab=$('menu').hidden;$('menu').hi
 document.addEventListener('click',e=>{if(!$('menu').hidden&&!e.target.closest('#menu'))fecharMenu()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')fecharMenu()});
 const ymd=d=>d.toLocaleDateString('sv-SE',{timeZone:TZ});
-$('mRetro').onclick=()=>{fecharMenu();const ontem=new Date(Date.now()-864e5);$('retroDate').max=ymd(ontem);$('retroDate').min=ymd(new Date(Date.now()-730*864e5));
+$('mRetro').onclick=()=>{fecharMenu();const ontem=new Date(Date.now()-864e5);$('retroDate').max=ymd(new Date());$('retroDate').min=ymd(new Date(Date.now()-730*864e5));
   retro=retro||ymd(ontem);$('retroDate').value=retro;cart={};render();scrollTo({top:0,behavior:'smooth'});toast('Modo venda anterior: escolha a data e monte a venda')};
-$('retroDate').onchange=()=>{const v=$('retroDate').value;if(v&&v<=$('retroDate').max){retro=v}else{$('retroDate').value=retro;toast('A data precisa ser de antes de hoje')}};
+$('retroDate').onchange=()=>{const v=$('retroDate').value;if(v&&v<=$('retroDate').max){retro=v}else{$('retroDate').value=retro;toast('A data não pode ser no futuro')}};
 $('retroOff').onclick=()=>{retro=null;cart={};render();toast('Voltou para as vendas de hoje')};
+$('conAdd').onsubmit=e=>{e.preventDefault();const pid=$('conProd').value,q=parseInt($('conQtd').value,10)||1;const c=cons.find(x=>x.pessoa==='MARY'&&x.produto_id===pid);mudaCons('MARY',pid,(c?c.qtd:0)+q);$('conQtd').value=1;toast('Peça adicionada')};
 $('who').onclick=async()=>{fecharMenu();retro=null;cart={};if(user){await sb.auth.signOut();toast('Você saiu')}};
 $('lEye').onclick=()=>{const p=$('lPass');p.type=p.type==='password'?'text':'password';$('lEye').setAttribute('aria-label',p.type==='password'?'Mostrar senha':'Esconder senha')};
 $('lForm').onsubmit=async e=>{e.preventDefault();
