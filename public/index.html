@@ -76,6 +76,8 @@ h2.sec{font-size:22px;font-weight:900;margin:28px 0 10px}
 .ph svg{width:42%;opacity:.45}
 .tag{position:absolute;bottom:8px;left:8px;background:var(--card);border-radius:99px;padding:2px 10px;font-size:13px;font-weight:800}
 .tag.falta{background:#f3d9a8;color:#5a3a12}.vr .plus.off{background:var(--line);border-color:var(--line);color:var(--soft)}
+.split{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px;font-size:14px;font-weight:700;opacity:.92}.split b{font-weight:900;white-space:nowrap}
+.day small.dsplit{display:block;font-weight:700;font-size:12px;color:var(--soft);text-align:right}
 .tag.zero{background:var(--warn);color:#fff}
 .qty{position:absolute;top:8px;left:8px;background:var(--ok);color:#fff;border-radius:99px;min-width:34px;height:34px;display:grid;place-items:center;font-weight:900;font-size:17px;padding:0 8px}
 .edit{position:absolute;top:6px;right:6px;width:40px;height:40px;min-height:0;padding:0;border-radius:50%;background:var(--card);display:grid;place-items:center;z-index:2}
@@ -183,7 +185,7 @@ label.photo input{position:absolute;opacity:0;width:1px;height:1px}
   </header>
 
   <section class="board" id="board" aria-label="Faturamento" hidden>
-    <div class="main"><div class="lbl">Faturamento de hoje</div><div class="big" id="fHoje">R$ 0,00</div></div>
+    <div class="main"><div class="lbl">Faturamento de hoje</div><div class="big" id="fHoje">R$ 0,00</div><div class="split" id="fSplit"></div></div>
     <div><div class="lbl">No mês</div><div class="mid" id="fMes">R$ 0</div></div>
     <div><div class="lbl">Total geral</div><div class="mid" id="fTot">R$ 0</div></div>
     <div><div class="lbl">Peças vendidas</div><div class="mid" id="nVend">0</div></div>
@@ -219,6 +221,8 @@ label.photo input{position:absolute;opacity:0;width:1px;height:1px}
   <form class="pan" id="sForm">
     <h2 id="sTitle">Fechar venda</h2>
     <label class="f">Nome do cliente<input id="sCli" required maxlength="80" autocomplete="off" placeholder="Ex.: Roberta"></label>
+    <div class="f" style="margin-bottom:0">Forma de pagamento</div>
+    <div class="chips" id="pay"><button type="button" class="chip" aria-pressed="false">Pix</button><button type="button" class="chip" aria-pressed="false">Dinheiro</button></div>
     <div class="cl" id="sItems"></div>
     <div class="tot"><span>Total</span><span id="sTot">R$ 0,00</span></div>
     <div class="err" id="sErr"></div>
@@ -334,7 +338,9 @@ function render(){
   $('tVit').textContent=equipe()?'Vender':'Vitrine';
   if(admin()){
     const h=hoje(),m=mes(new Date());
-    $('fHoje').textContent=brl(peds.filter(p=>dia(p.criado_em)===h).reduce((a,p)=>a+Number(p.total),0));
+    const ph=peds.filter(p=>dia(p.criado_em)===h),soma=(l,f)=>l.filter(p=>p.pagamento===f).reduce((a,p)=>a+Number(p.total),0);
+    $('fHoje').textContent=brl(ph.reduce((a,p)=>a+Number(p.total),0));
+    $('fSplit').innerHTML=`<span>Pix <b>${brl(soma(ph,'Pix'))}</b></span><span>Dinheiro <b>${brl(soma(ph,'Dinheiro'))}</b></span>`;
     $('fMes').textContent=brl0(peds.filter(p=>mes(p.criado_em)===m).reduce((a,p)=>a+Number(p.total),0));
     $('fTot').textContent=brl0(peds.reduce((a,p)=>a+Number(p.total),0));
     $('nVend').textContent=prods.reduce((a,p)=>a+(p.vendidos||0),0);
@@ -360,8 +366,8 @@ function render(){
   }
   if(admin()){
     if(!peds.length)$('hist').innerHTML='<div class="empty" style="border:0"><b>Sem vendas ainda</b></div>';
-    else{const tots={},cnt={};peds.forEach(p=>{const d=dia(p.criado_em);tots[d]=(tots[d]||0)+Number(p.total);cnt[d]=(cnt[d]||0)+1});
-      let html='',cur='';peds.forEach(p=>{const d=dia(p.criado_em);if(d!==cur){cur=d;html+=`<div class="day"><span>${d===hoje()?'Hoje':esc(d)} · ${cnt[d]} venda${cnt[d]>1?'s':''}</span><span>${brl(tots[d])}</span></div>`}html+=pedHtml(p)});
+    else{const tots={},cnt={},pix={},din={};peds.forEach(p=>{const d=dia(p.criado_em);tots[d]=(tots[d]||0)+Number(p.total);cnt[d]=(cnt[d]||0)+1;if(p.pagamento==='Pix')pix[d]=(pix[d]||0)+Number(p.total);if(p.pagamento==='Dinheiro')din[d]=(din[d]||0)+Number(p.total)});
+      let html='',cur='';peds.forEach(p=>{const d=dia(p.criado_em);if(d!==cur){cur=d;html+=`<div class="day"><span>${d===hoje()?'Hoje':esc(d)} · ${cnt[d]} venda${cnt[d]>1?'s':''}</span><span>${brl(tots[d])}<small class="dsplit">Pix ${brl(pix[d]||0)} · Dinheiro ${brl(din[d]||0)}</small></span></div>`}html+=pedHtml(p)});
       $('hist').innerHTML=html}
   }
 }
@@ -418,7 +424,7 @@ $('cbClr').onclick=()=>{cart={};render()};
 $('sCancel').onclick=()=>$('sale').classList.remove('on');
 $('sForm').onsubmit=async e=>{
   e.preventDefault();if(busy)return;const cli=$('sCli').value.trim(),l=cartList();
-  if(!cli){$('sErr').textContent='Coloque o nome do cliente.';return}if(!l.length)return;
+  if(!cli){$('sErr').textContent='Coloque o nome do cliente.';return}if(!pay){$('sErr').textContent='Escolha se foi Pix ou dinheiro.';return}if(!l.length)return;
   busy=true;$('sSave').textContent='Registrando…';
   const {error}=await sb.from('pedidos').insert({cliente:cli,pagamento:pay||null,itens:l.map(x=>({produto_id:x.p.id,qtd:x.q}))});
   busy=false;$('sSave').textContent='Registrar venda';
